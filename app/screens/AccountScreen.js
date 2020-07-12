@@ -6,6 +6,7 @@ import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
   {
@@ -26,10 +27,12 @@ const menuItems = [
 ];
 
 const AccountScreen = ({ navigation }) => {
+  const { user, logOut } = useAuth();
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
-        <ListItem title="Mosh Hamedani" subTitle="Most@gmail.com" image={require("../assets/mosh.jpg")} />
+        <ListItem title={user.name} subTitle={user.email} image={require("../assets/mosh.jpg")} />
       </View>
       <View style={styles.container}>
         <FlatList
@@ -45,7 +48,7 @@ const AccountScreen = ({ navigation }) => {
           )}
         />
       </View>
-      <ListItem title="Log out" IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />} />
+      <ListItem title="Log out" onPress={logOut} IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />} />
     </Screen>
   );
 };
